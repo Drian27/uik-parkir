@@ -1,35 +1,71 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }} // Mulai dari tidak terlihat dan lebih kecil
-        animate={{ opacity: 1, scale: 1 }} // Setelah di-mount, tampil dengan opacity penuh dan ukuran normal
-        exit={{ opacity: 0, x: 100 }} // Saat di-unmount, keluar ke kanan
-        transition={{ duration: 1 }} // Durasi animasi
-        className="h-[100vh]" // Pastikan ini ada untuk membuat penuh layar
-      >
-        <Link to="/login">
-          <div className="flex flex-col items-center justify-center h-full gap-5 bg-gradient-to-r from-green-400 via-green-200 to-green-600">
-            <h1 className="text-4xl font-bold md:text-5xl animate-fadeInUp">
-              Selamat Datang
-            </h1>
-            <img
-              src="./assets/img/uika.png"
-              alt="logo"
-              className="w-48 transition duration-500 ease-in-out md:w-72 hover:scale-110"
+    <div className="grid grid-cols-1 md:grid-cols-2 h-[100vh] bg-gray-100">
+      <div className="bg-primary relative">
+        <img
+          src="./assets/img/login/human.png"
+          alt="human"
+          className="absolute inset-0 w-56 left-32 md:w-[580px] md:ml-20"
+        />
+        <img
+          src="./assets/img/login/parkir.png"
+          alt="parkir"
+          className="w-40 pt-5 ml-16 md:w-80 md:ml-32 md:pt-28"
+        />
+      </div>
+      <div className="m-auto">
+        <img
+          src="./assets/logo.png"
+          alt="logo"
+        />
+        <form>
+          <div className="mb-4">
+            <label
+              className="block mb-2 text-sm text-gray-700"
+              htmlFor="email"
+            >
+              Email address
+            </label>
+            <input
+              className="w-full px-5 py-3 md:py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-0"
+              type="email"
+              placeholder="example@gmail.com"
+              name="email"
+              id="email"
+              required
             />
-            <h2 className="text-3xl font-semibold animate-pulse">Parkir</h2>
-            <h2 className="text-3xl font-semibold animate-pulse">
-              Universitas Ibnu Khaldun
-            </h2>
           </div>
-        </Link>
-      </motion.div>
-    </>
+          <div className="mb-4">
+            <label
+              className="block mb-2 text-sm text-gray-700"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              className="w-full px-5 py-3 md:py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-0"
+              type="password"
+              placeholder="**********"
+              name="password"
+              id="password"
+              required
+            />
+          </div>
+          <div className="flex w-full mt-10 text-center">
+            <Link
+              to="/dashboard"
+              type="submit"
+              className="w-full py-2 text-white transition duration-300 ease-in-out bg-gradient-to-r from-primary to-[#BEDC7CFC] rounded-full font-semibold"
+            >
+              Masuk
+            </Link>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

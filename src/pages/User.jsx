@@ -1,15 +1,15 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 
-const Dashbord = () => {
+const User = () => {
   return (
     <div className="flex">
       <Sidebar />
       <div>
-        <h1>Dashboard</h1>
+        <h1>User</h1>
       </div>
     </div>
   );
 };
 
-export default Dashbord;
+export default User;
