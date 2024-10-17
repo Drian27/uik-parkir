@@ -38,15 +38,15 @@ const Sidebar = () => {
     <nav
       className={`${
         open ? "w-72" : "w-20"
-      } h-screen flex flex-col bg-white border-r shadow-sm  transition-all duration-500 ease-in-out`}
+      } h-screen flex flex-col bg-white sticky top-0 border-r shadow-sm  transition-all duration-500 ease-in-out`}
     >
       <div className="p-4 pb-2 flex justify-between items-center relative">
         <img
           src="./assets/img/dashboard/P.png"
           alt="p"
-          className="w-24"
+          className="w-20"
         />
-        {open && <h1 className="text-secondary text-2xl font-bold mr-3">Parkir UIKA</h1>}
+        {open && <h1 className="text-primary text-xl font-bold">Parkir UIKA</h1>}
         <div
           onClick={() => setOpen(!open)}
           className={`absolute cursor-pointer -right-3 bg-primary rounded-full transform -translate-y-1/2 p-1 ${

@@ -4,16 +4,21 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-[100vh] bg-gray-100">
-      <div className="bg-primary relative">
+      <div className="relative bg-primary">
         <img
-          src="./assets/img/login/human.png"
+          src="./assets/img/login/bg.png"
           alt="human"
-          className="absolute inset-0 w-56 left-32 md:w-[580px] md:ml-20"
+          className="absolute inset-0 h-full w-full rounded-3xl"
         />
         <img
           src="./assets/img/login/parkir.png"
           alt="parkir"
-          className="w-40 pt-5 ml-16 md:w-80 md:ml-32 md:pt-28"
+          className="w-40 pt-5 ml-16 md:w-80 md:ml-32 md:pt-24 absolute inset-1"
+        />
+        <img
+          src="./assets/img/login/human.png"
+          alt="human"
+          className="absolute inset-2 left-32 md:ml-20 w-[80%]"
         />
       </div>
       <div className="m-auto">
@@ -30,7 +35,7 @@ const Home = () => {
               Email address
             </label>
             <input
-              className="w-full px-5 py-3 md:py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-0"
+              className="w-full px-5 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-0"
               type="email"
               placeholder="example@gmail.com"
               name="email"
@@ -46,7 +51,7 @@ const Home = () => {
               Password
             </label>
             <input
-              className="w-full px-5 py-3 md:py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-0"
+              className="w-full px-5 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-0"
               type="password"
               placeholder="**********"
               name="password"
@@ -58,7 +63,7 @@ const Home = () => {
             <Link
               to="/dashboard"
               type="submit"
-              className="w-full py-2 text-white transition duration-300 ease-in-out bg-gradient-to-r from-primary to-[#BEDC7CFC] rounded-full font-semibold"
+              className="w-full py-3 text-white transition duration-300 ease-in-out bg-gradient-to-r from-primary to-[#BEDC7CFC] rounded-full font-semibold"
             >
               Masuk
             </Link>
