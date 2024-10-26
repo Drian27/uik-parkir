@@ -9,6 +9,9 @@ const Transaksi = lazy(() => import("../pages/Transaksi.jsx"));
 const Setting = lazy(() => import("../pages/Setting.jsx"));
 const ErrorPage = lazy(() => import("../pages/ErrorPage.jsx"));
 
+// icons
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 export default function Router() {
   return useRoutes([
     {
@@ -19,7 +22,9 @@ export default function Router() {
       element: (
         <Suspense
           fallback={
-            <div className="h-[100vh] flex justify-center items-center text-5xl">Loading...</div>
+            <div className="h-[100vh] flex justify-center items-center text-5xl animate-spin">
+              <AiOutlineLoading3Quarters />
+            </div>
           }
         >
           {" "}
@@ -36,7 +41,7 @@ export default function Router() {
     {
       path: "*",
       element: (
-        <Navigate
+        <ErrorPage
           to="/errorpage"
           replace
         />

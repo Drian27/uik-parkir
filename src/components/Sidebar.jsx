@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiPieChart2Fill } from "react-icons/ri";
 import { IoPerson, IoSettingsOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { LuFileBarChart } from "react-icons/lu";
 
 const Sidebar = () => {
@@ -30,7 +30,7 @@ const Sidebar = () => {
   const Menus = [
     { title: "Dashboard", icon: <RiPieChart2Fill />, path: "/dashboard" },
     { title: "User", icon: <IoPerson />, path: "/user" },
-    { title: "Transaksi", icon: <LuFileBarChart />, path: "/transaksi" },
+    { title: "Transactions", icon: <LuFileBarChart />, path: "/transaksi" },
     { title: "Setting", icon: <IoSettingsOutline />, path: "/setting" },
   ];
 
@@ -40,7 +40,7 @@ const Sidebar = () => {
         open ? "w-72" : "w-20"
       } h-screen flex flex-col bg-white sticky top-0 border-r shadow-sm  transition-all duration-500 ease-in-out`}
     >
-      <div className="p-4 pb-2 flex justify-between items-center relative">
+      <div className="p-2 md:p-4 pb-2 flex justify-between items-center relative">
         <img
           src="./assets/img/dashboard/P.png"
           alt="p"
@@ -65,13 +65,24 @@ const Sidebar = () => {
         {Menus.map((menu, index) => (
           <li
             key={index}
-            className={`flex items-center gap-x-4 p-3 text-black hover:bg-gray-200 cursor-pointer ${
+            className={`flex items-center gap-x-4 p-3 text-black cursor-pointer ${
               open ? "" : "justify-center"
             }`}
             onClick={() => navigate(menu.path)}
           >
-            <span className="text-xl text-center">{menu.icon}</span>
-            {open && <span>{menu.title}</span>}
+            <NavLink
+              to={menu.path}
+              className={({ isActive }) =>
+                `flex items-center gap-x-4 text-xl text-center ${
+                  isActive
+                    ? "bg-primary w-full p-2 text-white rounded-lg"
+                    : "w-full p-2 text-slate-300 rounded-lg"
+                }`
+              }
+            >
+              <span className="text-xl text-center">{menu.icon}</span>
+              {open && <span>{menu.title}</span>}
+            </NavLink>
           </li>
         ))}
       </ul>

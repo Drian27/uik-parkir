@@ -1,89 +1,110 @@
 import React from "react";
 
+// icons
+import { FaMotorcycle } from "react-icons/fa6";
+import { FaCarSide } from "react-icons/fa";
+
 const Customer = () => {
-  const customers = [
+  const data = [
     {
-      name: "Chat w/ Joshi Prakash",
-      date: "05/12/2023 - 04:42PM",
-      duration: "5 Min",
-      amount: "₹199",
-      discount: "No Discount",
-      details: "View Details",
-      freeMin: "",
+      kendaraan: "Motor",
+      subject: "Mahasiswa",
+      npm_nip: "221143848",
+      tanggal: "7/9/2024",
+      masuk: "12.00",
+      keluar: "14.00",
+      status: "Aktif",
     },
     {
-      name: "Wallet Recharge",
-      date: "06/12/2023 - 02:22AM",
-      duration: "N/A",
-      amount: "₹500",
-      discount: "No Discount",
-      details: "View Details",
-      freeMin: "",
+      kendaraan: "Motor",
+      subject: "Mahasiswa",
+      npm_nip: "221143848",
+      tanggal: "7/9/2024",
+      masuk: "12.00",
+      keluar: "14.00",
+      status: "Aktif",
     },
     {
-      name: "Chat w/ Namrata Limk...",
-      date: "08/01/2024 - 04:16PM",
-      duration: "25 Min",
-      amount: "₹100",
-      discount: "No Discount",
-      details: "View Details",
-      freeMin: "",
+      kendaraan: "Motor",
+      subject: "Dosen",
+      npm_nip: "221143848",
+      tanggal: "7/9/2024",
+      masuk: "12.00",
+      keluar: "14.00",
+      status: "Aktif",
     },
     {
-      name: "Chat w/ Jeetender Kum...",
-      date: "02/01/2024 - 12:26PM",
-      duration: "35 Min",
-      amount: "₹200",
-      discount: "No Discount",
-      details: "View Details",
-      freeMin: "",
+      kendaraan: "Mobil",
+      subject: "Mahasiswa",
+      npm_nip: "221143848",
+      tanggal: "7/9/2024",
+      masuk: "12.00",
+      keluar: "14.00",
+      status: "Aktif",
     },
     {
-      name: "Chat w/ Shesdhev Pandey",
-      date: "12/06/2023 - 05:56PM",
-      duration: "5 Min",
-      amount: "₹0",
-      discount: "5 Min Free",
-      details: "View Details",
-      freeMin: "5 Min Free",
+      kendaraan: "Mobil",
+      subject: "Dosen",
+      npm_nip: "221143848",
+      tanggal: "7/9/2024",
+      masuk: "12.00",
+      keluar: "14.00",
+      status: "Aktif",
+    },
+    {
+      kendaraan: "Mobil",
+      subject: "Dosen",
+      npm_nip: "221143848",
+      tanggal: "7/9/2024",
+      masuk: "12.00",
+      keluar: "14.00",
+      status: "Aktif",
     },
   ];
 
   return (
-    <div className="mt-5 mx-auto px-4">
-      <h1 className="text-xl font-semibold mb-4">Customers Overview</h1>
-      <table className="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
+    <div className="mt-5">
+      <table className="min-w-full table-auto bg-white border border-gray-300 rounded-lg shadow-lg">
         <thead>
-          <tr className="bg-gray-100 text-left">
-            <th className="px-4 py-2">Nama</th>
-            <th className="px-4 py-2">Email</th>
-            <th className="px-4 py-2">Duration</th>
-            <th className="px-4 py-2">Transaction Amount</th>
-            <th className="px-4 py-2">Discount</th>
-            <th className="px-4 py-2">View Details</th>
+          <tr className="bg-primary text-white">
+            <th className="px-4 py-2">Vehicle</th>
+            <th className="px-4 py-2">Subject</th>
+            <th className="px-4 py-2">NPM/NIP</th>
+            <th className="px-4 py-2">Date</th>
+            <th className="px-4 py-2">In</th>
+            <th className="px-4 py-2">Out</th>
+            <th className="px-4 py-2">Status</th>
           </tr>
         </thead>
         <tbody>
-          {customers.map((customer, index) => (
+          {data.map((item, index) => (
             <tr
               key={index}
-              className="border-t"
+              className={`${index % 2 === 0 ? "bg-gray-100" : "bg-white"} text-center`}
             >
-              <td className="px-4 py-2">{customer.name}</td>
-              <td className="px-4 py-2">{customer.date}</td>
-              <td className="px-4 py-2">{customer.duration}</td>
-              <td className="px-4 py-2">{customer.amount}</td>
-              <td className="px-4 py-2">
-                {customer.freeMin ? (
-                  <span className="text-blue-500">{customer.freeMin}</span>
-                ) : (
-                  customer.discount
-                )}
+              <td className="px-4 py-2 flex justify-center items-center">
+                <span
+                  className={`mr-2 text-xl ${
+                    item.kendaraan === "Motor" ? "text-primary" : "text-yellow-500"
+                  }`}
+                >
+                  {item.kendaraan === "Motor" ? <FaMotorcycle /> : <FaCarSide />}
+                </span>
+                {item.kendaraan}
               </td>
+              <td className="px-4 py-2">{item.subject}</td>
+              <td className="px-4 py-2">{item.npm_nip}</td>
+              <td className="px-4 py-2">{item.tanggal}</td>
+              <td className="px-4 py-2">{item.masuk}</td>
+              <td className="px-4 py-2">{item.keluar}</td>
               <td className="px-4 py-2">
-                <button className="bg-purple-500 text-white px-3 py-1 rounded">
-                  {customer.details}
-                </button>
+                <span
+                  className={`px-2 py-1 rounded-full text-sm ${
+                    item.status === "Aktif" ? "bg-primary text-white" : "bg-red-500 text-white"
+                  }`}
+                >
+                  {item.status}
+                </span>
               </td>
             </tr>
           ))}
