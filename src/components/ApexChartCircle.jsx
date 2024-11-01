@@ -1,28 +1,27 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
+// icons
+import { FaMotorcycle } from "react-icons/fa6";
+import { FaCarSide } from "react-icons/fa";
+
 const ApexChartCircle = () => {
   const options = {
     chart: {
       type: "donut",
+      width: 300,
     },
     labels: ["Motor", "Mobil"],
     colors: ["#00E396", "#FFCD56"],
     legend: {
-      position: "bottom",
+      formatter: function (val, opts) {
+        return val + " - " + opts.w.globals.series[opts.seriesIndex] + "%";
+      },
     },
     plotOptions: {
       pie: {
         donut: {
-          size: "60%",
-          labels: {
-            show: true,
-            total: {
-              show: true,
-              label: "22%",
-              fontSize: "22px",
-            },
-          },
+          size: "50%",
         },
       },
     },
@@ -44,12 +43,12 @@ const ApexChartCircle = () => {
   const series = [22, 78];
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
+    <div className="bg-white flex justify-center items-center rounded-lg shadow-lg w-full h-[265px]">
       <ReactApexChart
         options={options}
         series={series}
         type="donut"
-        height={350}
+        width={350}
       />
     </div>
   );

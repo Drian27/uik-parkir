@@ -12,7 +12,8 @@ const Dashbord = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="px-2 md:px-5 w-[90%] md:w-full flex flex-col">
+      <div className="px-2 md:px-5 w-[90%] md:w-full flex flex-col bg-background">
+        {/* Header */}
         <div className="w-full flex items-center justify-between px-5 py-2 bg-primary mt-5 rounded-2xl font-semibold">
           <h1 className="text-xl md:text-2xl font-bold text-white">DASHBOARD</h1>
           <div className="flex justify-center items-center gap-2">
@@ -29,18 +30,18 @@ const Dashbord = () => {
           </div>
         </div>
         <div className="container mx-auto mt-10">
-          <div className="flex flex-wrap -mx-4">
-            <div className="w-full md:w-[70%] px-4 mb-4">
+          <div className="flex flex-wrap items-center -mx-4">
+            <div className="w-full md:w-[60%] px-4 mb-4">
               <ApexChart />
             </div>
-            <div className="w-full md:w-[30%] px-4 mb-4">
+            <div className="w-full md:w-[40%] px-4 mb-4">
               <ApexChartCircle />
             </div>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-10 mt-5">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="shadow-xl rounded-xl p-5">
+            <div className="shadow-xl bg-white rounded-xl p-5">
               <div className="flex gap-5 flex-col items-start">
                 <div className="bg-yellow-100 rounded-xl p-2">
                   <FaMotorcycle className="text-primary text-5xl" />
@@ -54,7 +55,7 @@ const Dashbord = () => {
                 </div>
               </div>
             </div>
-            <div className="shadow-xl rounded-xl p-5">
+            <div className="shadow-xl bg-white rounded-xl p-5">
               <div className="flex gap-5 flex-col items-start">
                 <div className="bg-[#FFF4DE] rounded-xl p-2">
                   <FaCarSide className="text-yellow-300 text-5xl" />
@@ -68,7 +69,7 @@ const Dashbord = () => {
                 </div>
               </div>
             </div>
-            <div className="shadow-xl rounded-xl p-5">
+            <div className="shadow-xl bg-white rounded-xl p-5">
               <div className="flex gap-5 flex-col items-start">
                 <div className="bg-green-100 rounded-xl p-2">
                   <FaCirclePlus className="text-primary text-5xl" />
@@ -90,7 +91,7 @@ const Dashbord = () => {
               <div className="flex justify-between items-center">
                 <p className="text-primary text-5xl font-bold">Rp.2.530.000</p>
                 <img
-                  src="./assets/img/dashboard/money.png"
+                  src="./assets/img/dashboard/rupiah.png"
                   alt="money"
                   className="w-32"
                 />
