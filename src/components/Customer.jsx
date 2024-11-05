@@ -63,7 +63,7 @@ const Customer = () => {
   ];
 
   return (
-    <div className="mt-5">
+    <div className="my-5">
       <table className="min-w-full table-auto bg-white border border-gray-300 rounded-lg shadow-lg">
         <thead>
           <tr className="bg-primary text-white">
