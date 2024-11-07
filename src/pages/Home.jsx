@@ -89,6 +89,7 @@ const Home = () => {
                 </span>
               </div>
             </label>
+            <p className="font-semibold text-end text-xs">Forgot password?</p>
           </div>
           <div className="flex w-full mt-10 text-center">
             <button
