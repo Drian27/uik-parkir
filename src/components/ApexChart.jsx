@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import { DateRangePicker } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import { IoFilter } from "react-icons/io5";
 import { FaMotorcycle } from "react-icons/fa6";
 import { FaCarSide } from "react-icons/fa";
 import format from "date-fns/format";
 import addDays from "date-fns/addDays";
 import eachDayOfInterval from "date-fns/eachDayOfInterval";
-import differenceInDays from "date-fns/differenceInDays";
 
 // Contoh data pengunjung harian untuk setiap tanggal
 const rawData = {
@@ -24,20 +19,16 @@ const rawData = {
 };
 
 const ApexChart = () => {
-  const [datePickerOpen, setDatePickerOpen] = useState(false);
-  const [dateRange, setDateRange] = useState([
+  const defaultRange = [
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 6),
-      key: "selection",
     },
-  ]);
-  const [appliedRange, setAppliedRange] = useState(dateRange);
+  ];
 
-  // Fungsi untuk memfilter data berdasarkan rentang tanggal yang dipilih
   const getFilteredData = () => {
-    const start = appliedRange[0].startDate;
-    const end = appliedRange[0].endDate;
+    const start = defaultRange[0].startDate;
+    const end = defaultRange[0].endDate;
 
     const daysInRange = eachDayOfInterval({ start, end });
     const daysCount = daysInRange.length;
@@ -73,45 +64,8 @@ const ApexChart = () => {
     colors: ["#00E396", "#FFCD56"],
   };
 
-  const applyDateRange = () => {
-    // Cek jika rentang tanggal lebih dari 30 hari
-    const daysDifference = differenceInDays(dateRange[0].endDate, dateRange[0].startDate);
-    if (daysDifference <= 30) {
-      setAppliedRange(dateRange);
-      setDatePickerOpen(false);
-    } else {
-      alert("Rentang tanggal maksimal adalah 30 hari.");
-    }
-  };
-
   return (
     <div className="p-4 bg-white w-full h-[265px] rounded-lg shadow-md relative">
-      <div
-        style={{ fontSize: "24px", cursor: "pointer" }}
-        onClick={() => setDatePickerOpen(!datePickerOpen)}
-        className="flex items-center justify-center gap-3 bg-primary w-24 text-white p-1 rounded-lg"
-      >
-        <IoFilter className="text-xl" />
-        <p className="text-lg">Filter</p>
-      </div>
-
-      {datePickerOpen && (
-        <div className="absolute top-16 left-0 z-20 bg-white p-4 border rounded shadow-md">
-          <DateRangePicker
-            onChange={(ranges) => setDateRange([ranges.selection])}
-            showSelectionPreview={true}
-            moveRangeOnFirstSelection={false}
-            ranges={dateRange}
-          />
-          <button
-            onClick={applyDateRange}
-            className="mt-2 px-4 py-2 bg-primary text-white rounded-md w-full"
-          >
-            Terapkan
-          </button>
-        </div>
-      )}
-
       <div className="absolute left-4 bottom-2 flex items-center gap-2">
         <FaMotorcycle className="bg-[#E2FFF3] p-2 text-4xl rounded-lg text-green-500" />
         <FaCarSide className="bg-[#FFF4DE] p-2 rounded-lg text-4xl text-yellow-300" />

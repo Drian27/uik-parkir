@@ -13,7 +13,7 @@ const Customer = () => {
       tanggal: "7/9/2024",
       masuk: "12.00",
       keluar: "14.00",
-      status: "Aktif",
+      status: "Active",
     },
     {
       kendaraan: "Motor",
@@ -22,7 +22,7 @@ const Customer = () => {
       tanggal: "7/9/2024",
       masuk: "12.00",
       keluar: "14.00",
-      status: "Aktif",
+      status: "Active",
     },
     {
       kendaraan: "Motor",
@@ -31,7 +31,7 @@ const Customer = () => {
       tanggal: "7/9/2024",
       masuk: "12.00",
       keluar: "14.00",
-      status: "Aktif",
+      status: "Active",
     },
     {
       kendaraan: "Mobil",
@@ -40,7 +40,7 @@ const Customer = () => {
       tanggal: "7/9/2024",
       masuk: "12.00",
       keluar: "14.00",
-      status: "Aktif",
+      status: "Active",
     },
     {
       kendaraan: "Mobil",
@@ -49,7 +49,7 @@ const Customer = () => {
       tanggal: "7/9/2024",
       masuk: "12.00",
       keluar: "14.00",
-      status: "Aktif",
+      status: "Active",
     },
     {
       kendaraan: "Mobil",
@@ -58,15 +58,15 @@ const Customer = () => {
       tanggal: "7/9/2024",
       masuk: "12.00",
       keluar: "14.00",
-      status: "Aktif",
+      status: "Active",
     },
   ];
 
   return (
-    <div className="my-5">
-      <table className="min-w-full table-auto bg-white border border-gray-300 rounded-lg shadow-lg">
+    <div className="my-5 overflow-scroll">
+      <table className="min-w-full table-auto bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg">
         <thead>
-          <tr className="bg-primary text-white">
+          <tr className="bg-primary text-white rounded-lg">
             <th className="px-4 py-2">Vehicle</th>
             <th className="px-4 py-2">Subject</th>
             <th className="px-4 py-2">NPM/NIP</th>
@@ -99,8 +99,8 @@ const Customer = () => {
               <td className="px-4 py-2">{item.keluar}</td>
               <td className="px-4 py-2">
                 <span
-                  className={`px-2 py-1 rounded-full text-sm ${
-                    item.status === "Aktif" ? "bg-primary text-white" : "bg-red-500 text-white"
+                  className={`px-2 py-1 rounded-md text-sm ${
+                    item.status === "Active" ? "bg-primary text-white" : "bg-red-500 text-white"
                   }`}
                 >
                   {item.status}

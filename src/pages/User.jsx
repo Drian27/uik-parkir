@@ -4,19 +4,19 @@ import Sidebar from "../components/Sidebar";
 // icons
 import { CiSearch } from "react-icons/ci";
 import {
-  FaCar,
   FaCarSide,
   FaChevronDown,
   FaCirclePlus,
   FaMotorcycle,
-  FaPlus,
+  FaRegCircleCheck,
 } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { GrTransaction } from "react-icons/gr";
+import { IoIosLogOut } from "react-icons/io";
+import ButtonLogOut from "../components/ButtonLogOut";
 
 const User = () => {
   const [activePopup, setActivePopup] = useState(null);
-  const [popUpVehicle, setPopUpVehicle] = useState();
+  const [filter, setFilter] = useState();
   const popupRef = useRef(null);
 
   // PopUp Action
@@ -41,25 +41,25 @@ const User = () => {
     };
   }, []);
 
-  // PopUp Vehicle
-  const handlePopUpVehicle = (index) => {
-    if (popUpVehicle === index) {
-      setPopUpVehicle(null);
+  // PopUp Filter
+  const handlefilter = (index) => {
+    if (filter === index) {
+      setFilter(null);
     } else {
-      setPopUpVehicle(index);
+      setFilter(index);
     }
   };
 
   useEffect(() => {
-    const handleOutVehicle = (event) => {
+    const handleOutFilter = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setPopUpVehicle(null);
+        setFilter(null);
       }
     };
 
-    document.addEventListener("mousedown", handleOutVehicle);
+    document.addEventListener("mousedown", handleOutFilter);
     return () => {
-      document.removeEventListener("mousedown", handleOutVehicle);
+      document.removeEventListener("mousedown", handleOutFilter);
     };
   }, []);
 
@@ -71,7 +71,7 @@ const User = () => {
       vehicle: "F 4638 G",
       email: "jal@gmail.com",
       nip: "221135435",
-      balance: "10.000",
+      balance: "Rp.50.000",
       status: "Active",
     },
     {
@@ -81,7 +81,7 @@ const User = () => {
       vehicle: "F 4638 G",
       email: "jal@gmail.com",
       nip: "221135435",
-      balance: "10.000",
+      balance: "Rp.50.000",
       status: "Active",
     },
     {
@@ -91,7 +91,7 @@ const User = () => {
       vehicle: "F 4638 G",
       email: "jal@gmail.com",
       nip: "221135435",
-      balance: "10.000",
+      balance: "Rp.50.000",
       status: "Active",
     },
     {
@@ -101,7 +101,7 @@ const User = () => {
       vehicle: "F 4638 G",
       email: "jal@gmail.com",
       nip: "221135435",
-      balance: "10.000",
+      balance: "Rp.50.000",
       status: "Active",
     },
     {
@@ -111,7 +111,7 @@ const User = () => {
       vehicle: "F 4638 G",
       email: "jal@gmail.com",
       nip: "221135435",
-      balance: "10.000",
+      balance: "Rp.50.000",
       status: "Active",
     },
     {
@@ -121,7 +121,7 @@ const User = () => {
       vehicle: "F 4638 G",
       email: "jal@gmail.com",
       nip: "221135435",
-      balance: "10.000",
+      balance: "Rp.50.000",
       status: "Active",
     },
   ];
@@ -131,26 +131,27 @@ const User = () => {
       <Sidebar />
       <div className="px-5 w-full flex flex-col bg-background">
         {/* Header */}
-        <div className="w-full flex items-center justify-between px-5 py-2 bg-primary mt-5 rounded-2xl font-semibold">
-          <h1 className="text-xl md:text-2xl font-bold text-white">USER</h1>
+        <div className="w-full flex items-center justify-between px-5 py-1 md:py-2 bg-primary mt-5 rounded-2xl font-semibold">
           <div className="flex justify-center items-center gap-2">
-            <div className="text-end text-white leading-tight">
-              <p className="text-xl font-light">Abdul Murudul</p>
-              <p className="text-sm font-[800]">Super Admin</p>
-            </div>
             <div>
               <img
                 src="./assets/img/dashboard/logo-uika.png"
                 alt="logo-uika"
               />
             </div>
+            <div className="text-white leading-tight">
+              <p className="md:text-xl font-light">Abdul Murudul</p>
+              <p className="md:text-sm text-xs font-[800]">Super Admin</p>
+            </div>
           </div>
+          <h1 className="text-sm md:text-2xl font-bold text-white">USER</h1>
+          <ButtonLogOut />
         </div>
 
         {/* Search & Filter */}
         <div className="flex items-center justify-between mt-5 px-1">
           <div>
-            <h1 className="text-slate-500">USER MAHASISWA/DOSEN</h1>
+            <h1 className="text-slate-500">ALL USER</h1>
           </div>
           <div className="flex">
             <div className="flex bg-white items-center border rounded-md mr-2 px-2">
@@ -161,12 +162,27 @@ const User = () => {
                 className="p-2 rounded-md border-none flex-grow focus:outline-none"
               />
             </div>
-            <button className="border border-b-2 border-black px-4 py-2 rounded-md">Filter</button>
+            <button
+              className="border border-b-2 border-black px-4 py-2 rounded-md"
+              onClick={handlefilter}
+            >
+              Filter
+            </button>
+            {filter && (
+              <div
+                ref={popupRef}
+                className="absolute top-40 right-5 bg-white border border-primary text-primary p-3 flex flex-col gap-2 rounded-md z-10 shadow-lg"
+              >
+                <p>Lecturer</p>
+                <p>Student</p>
+                <p>Employee</p>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Table */}
-        <div className="overflow-auto rounded-lg shadow-lg mt-5 border border-gray-200">
+        <div className="overflow-auto rounded-lg mt-5">
           <table className="w-full">
             <thead className="bg-primary text-white">
               <tr>
@@ -191,54 +207,24 @@ const User = () => {
                   <td className="text-sm text-gray-700 py-3 px-4">{user.subject}</td>
                   <td className="text-sm text-gray-700 py-3 px-4">{user.faculty}</td>
                   <td className="text-sm text-gray-700 py-3 px-4 relative flex items-center gap-2">
-                    {user.vehicle}
-                    <div
-                      onClick={() => handlePopUpVehicle(index)}
-                      className="bg-primary text-white flex justify-center w-auto rounded-xl px-2 py-1"
-                    >
-                      <FaChevronDown className="text-base" />
-                    </div>
-                    {popUpVehicle === index && (
-                      <div
-                        ref={popupRef}
-                        className="absolute top-10 right-0 bg-primary p-2 flex flex-col gap-1 rounded-md z-10 shadow-lg text-center"
-                      >
-                        <div className="flex justify-center items-center text-white gap-2">
-                          <div className="bg-yellow-100 rounded-xl p-2">
-                            <FaMotorcycle className="text-primary text-base" />
-                          </div>
-                          <p className="text-sm">F 4638 G</p>
-                          <GrTransaction className="text-xs" />
-                        </div>
-                        <div className="flex justify-center items-center text-white gap-2">
-                          <div className="bg-[#FFF4DE] rounded-xl p-2">
-                            <FaCarSide className="text-yellow-300 text-base" />
-                          </div>
-                          <p className="text-sm">F 4638 G</p>
-                          <GrTransaction className="text-xs" />
-                        </div>
-                        <div className="flex justify-center items-center text-white gap-2">
-                          <div className="bg-yellow-100 rounded-xl p-2">
-                            <FaMotorcycle className="text-primary text-base" />
-                          </div>
-                          <p className="text-sm">F 4638 G</p>
-                          <GrTransaction className="text-xs" />
-                        </div>
-                        <div className="flex justify-center items-center gap-2 text-secondary">
-                          <p>Add</p>
-                          <FaPlus />
-                        </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        {user.vehicle} <FaMotorcycle className="text-primary" />{" "}
+                        <FaRegCircleCheck className="text-primary" />
                       </div>
-                    )}
+                      <div className="flex items-center gap-2">
+                        {user.vehicle} <FaCarSide className="text-secondary" />
+                      </div>
+                    </div>
                   </td>
                   <td className="text-sm text-gray-700 py-3 px-4">{user.email}</td>
                   <td className="text-sm text-gray-700 py-3 px-4">{user.nip}</td>
                   <td className="text-sm text-gray-700 py-3 px-4">{user.balance}</td>
                   <td className="text-sm py-3 px-4">
                     <span
-                      className={`px-3 py-1 font-semibold rounded-full ${
+                      className={`px-3 py-1 font-semibold rounded-md ${
                         user.status === "Active"
-                          ? "text-green-800 bg-green-200"
+                          ? "text-white bg-primary"
                           : "text-red-800 bg-red-200"
                       }`}
                     >
@@ -276,14 +262,7 @@ const User = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-sm text-gray-400 flex items-center gap-5">
-            <div className="flex items-center gap-1">
-              <p>10</p>
-              <FaChevronDown />
-            </div>
-            <p>Items per page</p>
-          </div>
+        <div className="mt-4 flex items-center justify-center">
           <div className="flex items-center text-sm space-x-2 text-slate-400">
             <div className="flex items-center bg-slate-200 p-1 rounded-lg gap-2">
               <p>1</p>
