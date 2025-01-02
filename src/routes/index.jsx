@@ -23,21 +23,36 @@ const ProtectedRoute = ({ children }) => {
   // Validasi token jika perlu (misal menggunakan JWT)
   if (!token) {
     console.log("Token tidak ditemukan, mengarahkan ke login");
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to="/"
+        replace
+      />
+    );
   }
 
   // Optional Cek apakah token masih valid (contoh validasi JWT)
   try {
-    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Dekode JWT untuk memeriksa eksp
+    const decodedToken = JSON.parse(atob(token.split(".")[1])); // Dekode JWT untuk memeriksa eksp
     if (decodedToken.exp * 1000 < Date.now()) {
       console.log("Token kadaluarsa, mengarahkan ke login");
       localStorage.removeItem("authToken"); // Hapus token yang sudah kadaluarsa
-      return <Navigate to="/" replace />;
+      return (
+        <Navigate
+          to="/"
+          replace
+        />
+      );
     }
   } catch (error) {
     console.log("Token tidak valid, mengarahkan ke login", error);
     localStorage.removeItem("authToken");
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to="/"
+        replace
+      />
+    );
   }
 
   return children;
@@ -101,6 +116,22 @@ export default function Router() {
           element: (
             <ProtectedRoute>
               <Setting />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "setting/admin",
+          element: (
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "setting/financial",
+          element: (
+            <ProtectedRoute>
+              <Financial />
             </ProtectedRoute>
           ),
         },
