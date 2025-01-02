@@ -8,6 +8,8 @@ const Dashboard = lazy(() => import("../pages/Dashbord.jsx"));
 const User = lazy(() => import("../pages/User.jsx"));
 const Transaksi = lazy(() => import("../pages/Transaksi.jsx"));
 const Setting = lazy(() => import("../pages/Setting.jsx"));
+const Admin = lazy(() => import("../pages/SettingAdmin.jsx"));
+const Financial = lazy(() => import("../pages/SettingFinancial.jsx"));
 const ErrorPage = lazy(() => import("../pages/ErrorPage.jsx"));
 
 // icons
