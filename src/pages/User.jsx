@@ -10,8 +10,7 @@ import {
   FaMotorcycle,
   FaRegCircleCheck,
 } from "react-icons/fa6";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { IoIosLogOut } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward, IoMdArrowDropdown } from "react-icons/io";
 import ButtonLogOut from "../components/ButtonLogOut";
 
 const User = () => {
@@ -171,11 +170,17 @@ const User = () => {
             {filter && (
               <div
                 ref={popupRef}
-                className="absolute top-40 right-5 bg-white border border-primary text-primary p-3 flex flex-col gap-2 rounded-md z-10 shadow-lg"
+                className="absolute top-40 right-5 bg-white border border-primary text-primary p-3 flex flex-col items-start gap-2 rounded-md z-10 shadow-lg"
               >
-                <p>Lecturer</p>
-                <p>Student</p>
-                <p>Employee</p>
+                <button>Lecturer</button>
+                <button className="flex items-center gap-3">
+                  Student
+                  <span className="text-2xl text-black">
+                    <IoMdArrowDropdown />
+                  </span>
+                </button>
+                <button>Employee</button>
+                <button>Other</button>
               </div>
             )}
           </div>
@@ -243,9 +248,9 @@ const User = () => {
                         ref={popupRef}
                         className="absolute top-10 right-0 bg-gray-200 p-3 flex flex-col gap-1 rounded-md z-10 shadow-lg w-32 text-center"
                       >
-                        <p className="text-white bg-primary cursor-pointer hover:bg-gray-600 py-1 rounded">
+                        <button className="text-white bg-primary cursor-pointer hover:bg-gray-600 py-1 rounded">
                           Aktif
-                        </p>
+                        </button>
                         <p className="text-white bg-[#FF3D00] cursor-pointer hover:bg-gray-600 py-1 rounded">
                           Non Aktif
                         </p>

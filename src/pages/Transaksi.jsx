@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 
 // icons
 import { FaMotorcycle, FaCarSide } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import { HiMiniWallet } from "react-icons/hi2";
-import { IoIosLogOut } from "react-icons/io";
 import { IoCalendar } from "react-icons/io5";
 import ButtonLogOut from "../components/ButtonLogOut";
 
 const Transaksi = () => {
+  const [selectedFilter, setSelectedFilter] = useState("cash");
   // Data Transactions
   const transactions = [
     {
@@ -251,15 +251,37 @@ const Transaksi = () => {
               <p className="text-xl font-black">Rp.3.000.000</p>
             </div>
           </div>
-          <div className="bg-white flex items-center p-3 gap-3 border border-gray-200 border-1 rounded-lg">
-            <div className="bg-green-200 text-primary flex justify-center items-center rounded-full">
-              <HiMiniWallet className="text-6xl p-4" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-400">
-                Total <span className="text-primary underline font-medium">Cash</span> or Non Cash
-              </p>
-              <p className="text-xl font-black">Rp.500.000</p>
+          <div>
+            {/* Displaying content based on selected filter */}
+            <div className="bg-white flex items-center p-3 gap-3 border border-gray-200 border-1 rounded-lg">
+              <div className="bg-green-200 text-primary flex justify-center items-center rounded-full">
+                <HiMiniWallet className="text-6xl p-4" />
+              </div>
+              <div>
+                <div className="text-xs text-gray-400 flex gap-1">
+                  <p>Total</p>
+                  <button
+                    onClick={() => setSelectedFilter("cash")}
+                    className={`font-medium ${
+                      selectedFilter === "cash" ? "text-primary underline" : "text-gray-400"
+                    }`}
+                  >
+                    Cash
+                  </button>
+                  <p>or</p>
+                  <button
+                    onClick={() => setSelectedFilter("non-cash")}
+                    className={`font-medium ${
+                      selectedFilter === "non-cash" ? "text-primary underline" : "text-gray-400"
+                    }`}
+                  >
+                    Non-Cash
+                  </button>
+                </div>
+                <button className="text-xl font-black">
+                  {selectedFilter === "cash" ? "Rp.500.000" : "Rp.250.000"}
+                </button>
+              </div>
             </div>
           </div>
           <div className="bg-white flex items-center p-3 gap-3 border border-gray-200 border-1 rounded-lg">
@@ -327,7 +349,7 @@ const Transaksi = () => {
                   <td className="text-sm text-primary py-3 px-4">{transaction.in}</td>
                   <td className="text-sm text-red-700 py-3 px-4">{transaction.out}</td>
                   <td className="text-sm text-gray-700 py-3 px-4 font-semibold">
-                    Rp.{transaction.price}
+                    {transaction.price}
                   </td>
                 </tr>
               ))}
