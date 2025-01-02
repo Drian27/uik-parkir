@@ -9,6 +9,7 @@ import { IoFilter } from "react-icons/io5";
 
 import Customer from "../components/Customer";
 import ButtonLogOut from "../components/ButtonLogOut";
+import FilterDashboard from "../components/FilterDashboard";
 
 const Dashbord = () => {
   return (

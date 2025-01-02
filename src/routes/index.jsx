@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { useRoutes, Outlet, Navigate } from "react-router-dom";
 import "./index.css";
 
+// Lazy-loaded pages
 const Home = lazy(() => import("../pages/Home.jsx"));
 const Dashboard = lazy(() => import("../pages/Dashbord.jsx"));
 const User = lazy(() => import("../pages/User.jsx"));
@@ -12,11 +13,49 @@ const ErrorPage = lazy(() => import("../pages/ErrorPage.jsx"));
 // icons
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+// Middleware for Protected Routes
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("authToken");
+  console.log("Token ditemukan:", token); // Debugging
+
+  // Validasi token jika perlu (misal menggunakan JWT)
+  if (!token) {
+    console.log("Token tidak ditemukan, mengarahkan ke login");
+    return <Navigate to="/" replace />;
+  }
+
+  // Optional Cek apakah token masih valid (contoh validasi JWT)
+  try {
+    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Dekode JWT untuk memeriksa eksp
+    if (decodedToken.exp * 1000 < Date.now()) {
+      console.log("Token kadaluarsa, mengarahkan ke login");
+      localStorage.removeItem("authToken"); // Hapus token yang sudah kadaluarsa
+      return <Navigate to="/" replace />;
+    }
+  } catch (error) {
+    console.log("Token tidak valid, mengarahkan ke login", error);
+    localStorage.removeItem("authToken");
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
 export default function Router() {
   return useRoutes([
     {
       path: "/",
-      element: <Home />,
+      element: (
+        <Suspense
+          fallback={
+            <div className="h-[100vh] flex justify-center items-center text-5xl animate-spin">
+              <AiOutlineLoading3Quarters />
+            </div>
+          }
+        >
+          <Home />
+        </Suspense>
+      ),
     },
     {
       element: (
@@ -27,25 +66,57 @@ export default function Router() {
             </div>
           }
         >
-          {" "}
           <Outlet />
         </Suspense>
       ),
       children: [
-        { path: "dashboard", element: <Dashboard /> },
-        { path: "user", element: <User /> },
-        { path: "transaksi", element: <Transaksi /> },
-        { path: "setting", element: <Setting /> },
+        {
+          path: "dashboard",
+          element: (
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "user",
+          element: (
+            <ProtectedRoute>
+              <User />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "transaksi",
+          element: (
+            <ProtectedRoute>
+              <Transaksi />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "setting",
+          element: (
+            <ProtectedRoute>
+              <Setting />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
     {
       path: "*",
       element: (
-        <ErrorPage
-          to="/errorpage"
-          replace
-        />
-      ), // Halaman 404 tidak ada di rute ini, tambahkan jika perlu
+        <Suspense
+          fallback={
+            <div className="h-[100vh] flex justify-center items-center text-5xl animate-spin">
+              <AiOutlineLoading3Quarters />
+            </div>
+          }
+        >
+          <ErrorPage />
+        </Suspense>
+      ),
     },
   ]);
 }

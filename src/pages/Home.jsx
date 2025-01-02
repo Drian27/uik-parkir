@@ -15,23 +15,26 @@ const Home = () => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page reload
-
+    e.preventDefault();
     const data = {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-
+  
     try {
-      const response = await login(data); // Call the login API
-      if (response?.data) {
-        navigate("/dashboard"); // Navigate to the dashboard on success
+      const response = await login(data); // Asumsikan login API mengembalikan token
+      if (response?.data?.token) {
+        localStorage.setItem("authToken", response.data.token); // Simpan token
+        console.log("Token berhasil disimpan:", response.data.token); // Debug
+        navigate("/dashboard", { replace: true }); // Arahkan ke dashboard
+      } else {
+        console.error("Login gagal, token tidak diterima.");
       }
     } catch (error) {
-      // Handle errors and set error messages
-      setErrorMessage(error.response?.data?.error || "Login failed. Please try again.");
+      console.error("Kesalahan saat login:", error);
     }
   };
+  
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-full md:h-[100vh] bg-gray-100">
@@ -64,7 +67,7 @@ const Home = () => {
               htmlFor="email"
             >
               <span className="block font-semibold mb-1 text-slate-700 after:content-['*'] after:text-red-600 after:ml-0.5">
-                User ID
+                Email
               </span>
               <input
                 className="px-5 py-3 border rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"

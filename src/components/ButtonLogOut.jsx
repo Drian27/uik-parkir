@@ -22,8 +22,14 @@ const ButtonLogOut = () => {
         cancelButton:
           "px-4 py-2 border-2 ml-2 border-white text-white bg-transparent rounded-lg hover:bg-white hover:text-green-700 transition font-semibold", // Tombol No
       },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("authToken");
+        window.location.href = "/";
+      }
     });
   };
+  
   return (
     <div
       onClick={handleLogout}
