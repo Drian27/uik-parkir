@@ -7,6 +7,8 @@ const Dashboard = lazy(() => import("../pages/Dashbord.jsx"));
 const User = lazy(() => import("../pages/User.jsx"));
 const Transaksi = lazy(() => import("../pages/Transaksi.jsx"));
 const Setting = lazy(() => import("../pages/Setting.jsx"));
+const Admin = lazy(() => import("../pages/SettingAdmin.jsx"));
+const Financial = lazy(() => import("../pages/SettingFinancial.jsx"));
 const ErrorPage = lazy(() => import("../pages/ErrorPage.jsx"));
 
 // icons
@@ -36,6 +38,8 @@ export default function Router() {
         { path: "user", element: <User /> },
         { path: "transaksi", element: <Transaksi /> },
         { path: "setting", element: <Setting /> },
+        { path: "setting/admin", element: <Admin /> },
+        { path: "setting/financial", element: <Financial /> },
       ],
     },
     {

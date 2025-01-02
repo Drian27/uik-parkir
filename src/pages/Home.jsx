@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import { useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { login } from "../components/Login"; // Assumes `login` is a function making the API call
+import { login } from "../components/Login";
 
 const Home = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
 
     const data = {
       email: e.target.email.value,
@@ -23,12 +21,11 @@ const Home = () => {
     };
 
     try {
-      const response = await login(data); // Call the login API
+      const response = await login(data);
       if (response?.data) {
-        navigate("/dashboard"); // Navigate to the dashboard on success
+        navigate("/dashboard");
       }
     } catch (error) {
-      // Handle errors and set error messages
       setErrorMessage(error.response?.data?.error || "Login failed. Please try again.");
     }
   };
@@ -102,8 +99,16 @@ const Home = () => {
               </div>
             </label>
           </div>
-          {errorMessage && <p className="text-red-500 text-sm mb-4">{errorMessage}</p>}
-          <div className="flex w-full my-10 text-center">
+          <div className="flex gap-2">
+            <input
+              type="checkbox"
+              required
+              className="w-4"
+            />
+            <p className="font-light text-sm">Remember me?</p>
+          </div>
+          {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+          <div className="flex w-full mt-2 text-center">
             <button
               type="submit"
               className="w-full py-3 text-white transition duration-300 ease-in-out bg-primary rounded-lg font-semibold"
