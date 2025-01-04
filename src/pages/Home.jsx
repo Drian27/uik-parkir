@@ -15,10 +15,10 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      email: e.target.email.value,
+      username: e.target.username.value,
       password: e.target.password.value,
     };
-  
+
     try {
       const response = await login(data); // Asumsikan login API mengembalikan token
       if (response?.data?.token) {
@@ -32,7 +32,6 @@ const Home = () => {
       console.error("Kesalahan saat login:", error);
     }
   };
-  
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-full md:h-[100vh] bg-gray-100">
@@ -62,17 +61,17 @@ const Home = () => {
           <div className="mb-4">
             <label
               className="block mb-2 text-sm text-gray-700"
-              htmlFor="email"
+              htmlFor="username"
             >
               <span className="block font-semibold mb-1 text-slate-700 after:content-['*'] after:text-red-600 after:ml-0.5">
-                Email
+                username
               </span>
               <input
                 className="px-5 py-3 border rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
-                type="email"
+                type="text"
                 placeholder="User ID"
-                name="email"
-                id="email"
+                name="username"
+                id="username"
                 required
               />
             </label>
