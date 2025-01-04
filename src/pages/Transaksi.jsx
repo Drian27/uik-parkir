@@ -10,8 +10,8 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // Main style file
 import "react-date-range/dist/theme/default.css";
+import { transaktionAll } from "../services/api";
 import ButtonLogOut from "../components/ButtonLogOut";
-import axios from "axios";
 
 const Transaksi = () => {
   const [selectedFilter, setSelectedFilter] = useState("cash");
@@ -27,12 +27,20 @@ const Transaksi = () => {
     },
   ]);
   const [history, setHistory] = useState([]);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    axios
-      .get("https://fakestoreapi.com/products")
-      .then((response) => setHistory(response.data))
-      .catch((err) => console.error(err));
-  });
+    const fetchHistory = async () => {
+      try {
+        const products = await transaktionAll();
+        setHistory(products);
+      } catch (err) {
+        setError("Failed to fetch data");
+      }
+    };
+
+    fetchHistory();
+  }, []);
 
   const setPredefinedRange = (type) => {
     const today = new Date();
@@ -462,6 +470,7 @@ const Transaksi = () => {
                   className="hover:bg-gray-100 bg-white"
                 >
                   <td className="text-sm text-gray-700 py-3 px-4">{historys.title}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4">{historys.price}</td>
                   {/* <td className="text-sm text-gray-700 py-3 px-4">{transaction.typeuser}</td>
                   <td className="text-sm text-gray-700 py-3 px-4">{transaction.npm}</td>
                   <td className="text-sm text-gray-700 py-3 px-4">{transaction.email}</td>
