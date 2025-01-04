@@ -18,11 +18,9 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 // Middleware for Protected Routes
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("authToken");
-  console.log("Token ditemukan:", token); // Debugging
 
   // Validasi token jika perlu (misal menggunakan JWT)
   if (!token) {
-    console.log("Token tidak ditemukan, mengarahkan ke login");
     return (
       <Navigate
         to="/"

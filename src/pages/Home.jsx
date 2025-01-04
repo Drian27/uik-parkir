@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { login } from "../components/Login";
+import { login } from "../services/api";
 
 const Home = () => {
   const [showPassword, setShowPassword] = useState(false);

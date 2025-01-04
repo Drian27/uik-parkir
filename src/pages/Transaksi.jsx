@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 
 // icons
@@ -11,6 +11,7 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // Main style file
 import "react-date-range/dist/theme/default.css";
 import ButtonLogOut from "../components/ButtonLogOut";
+import axios from "axios";
 
 const Transaksi = () => {
   const [selectedFilter, setSelectedFilter] = useState("cash");
@@ -25,6 +26,14 @@ const Transaksi = () => {
       key: "selection",
     },
   ]);
+  const [history, setHistory] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://fakestoreapi.com/products")
+      .then((response) => setHistory(response.data))
+      .catch((err) => console.error(err));
+  });
+
   const setPredefinedRange = (type) => {
     const today = new Date();
     let startDate, endDate;
@@ -160,16 +169,17 @@ const Transaksi = () => {
         <div className="w-full flex items-center justify-between px-5 py-1 md:py-2 bg-primary mt-5 rounded-2xl font-semibold">
           <div className="flex justify-center items-center gap-2">
             <div>
-              <img src="./assets/img/dashboard/logo-uika.png" alt="logo-uika" />
+              <img
+                src="./assets/img/dashboard/logo-uika.png"
+                alt="logo-uika"
+              />
             </div>
             <div className="text-white leading-tight">
               <p className="md:text-xl font-light">Abdul Murudul</p>
               <p className="md:text-sm text-xs font-[800]">Super Admin</p>
             </div>
           </div>
-          <h1 className="text-sm md:text-2xl font-bold text-white">
-            TRANSACTIONS
-          </h1>
+          <h1 className="text-sm md:text-2xl font-bold text-white">TRANSACTIONS</h1>
           <ButtonLogOut />
         </div>
 
@@ -260,9 +270,7 @@ const Transaksi = () => {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
           <div className="bg-white flex items-center p-3 gap-3 border border-gray-200 border-1 rounded-lg">
-            <p className="bg-green-200 text-primary text-2xl rounded-full p-4">
-              Rp
-            </p>
+            <p className="bg-green-200 text-primary text-2xl rounded-full p-4">Rp</p>
             <div>
               <p className="text-xs text-gray-400">Total Income</p>
               <p className="text-xl font-black">Rp.3.000.000</p>
@@ -448,13 +456,13 @@ const Transaksi = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTransactions.map((transaction, index) => (
+              {history.map((historys, index) => (
                 <tr
                   key={index}
                   className="hover:bg-gray-100 bg-white"
                 >
-                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.name}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.typeuser}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4">{historys.title}</td>
+                  {/* <td className="text-sm text-gray-700 py-3 px-4">{transaction.typeuser}</td>
                   <td className="text-sm text-gray-700 py-3 px-4">{transaction.npm}</td>
                   <td className="text-sm text-gray-700 py-3 px-4">{transaction.email}</td>
                   <td className="text-sm text-gray-700 py-3 px-4 flex items-center gap-2">
@@ -469,21 +477,13 @@ const Transaksi = () => {
                     )}
                     {transaction.vehicle}
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">
-                    {transaction.date}
-                  </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">
-                    {transaction.payment}
-                  </td>
-                  <td className="text-sm text-primary py-3 px-4">
-                    {transaction.in}
-                  </td>
-                  <td className="text-sm text-red-700 py-3 px-4">
-                    {transaction.out}
-                  </td>
+                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.date}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.payment}</td>
+                  <td className="text-sm text-primary py-3 px-4">{transaction.in}</td>
+                  <td className="text-sm text-red-700 py-3 px-4">{transaction.out}</td>
                   <td className="text-sm text-gray-700 py-3 px-4 font-semibold">
                     {transaction.price}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
