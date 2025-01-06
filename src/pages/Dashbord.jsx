@@ -41,7 +41,11 @@ const Dashboard = () => {
   }, [filterRange]);
 
   if (error) {
-    return <p className="text-red-500">Failed to load dashboard data. Please try again.</p>;
+    return (
+      <p className="text-red-500 flex justify-center items-center font-bold uppercase h-[100vh] text-2xl">
+        Failed to load dashboard data. Please try again.
+      </p>
+    );
   }
 
   return (
