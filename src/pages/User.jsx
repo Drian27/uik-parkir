@@ -11,7 +11,11 @@ import {
   FaMotorcycle,
   FaRegCircleCheck,
 } from "react-icons/fa6";
-import { IoIosArrowBack, IoIosArrowForward, IoMdArrowDropdown } from "react-icons/io";
+import {
+  IoIosArrowBack,
+  IoIosArrowForward,
+  IoMdArrowDropdown,
+} from "react-icons/io";
 import ButtonLogOut from "../components/ButtonLogOut";
 import { AiOutlineEllipsis } from "react-icons/ai";
 
@@ -93,10 +97,7 @@ const User = () => {
         <div className="w-full flex items-center justify-between px-5 py-1 md:py-2 bg-primary mt-5 rounded-2xl font-semibold">
           <div className="flex justify-center items-center gap-2">
             <div>
-              <img
-                src="./assets/img/dashboard/logo-uika.png"
-                alt="logo-uika"
-              />
+              <img src="./assets/img/dashboard/logo-uika.png" alt="logo-uika" />
             </div>
             <div className="text-white leading-tight">
               <p className="md:text-xl font-light">Abdul Murudul</p>
@@ -144,15 +145,21 @@ const User = () => {
                 </button>
                 {studentFilter && (
                   <div className="ml-6 mt-2 bg-gray-100 border border-gray-300 rounded-md p-2 shadow">
-                    <button className="block text-left w-full">Faculty of Islamic Religion</button>
+                    <button className="block text-left w-full">
+                      Faculty of Islamic Religion
+                    </button>
                     <button className="block text-left w-full">
                       Faculty of Teacher Training and Education
                     </button>
-                    <button className="block text-left w-full">Faculty of Law</button>
+                    <button className="block text-left w-full">
+                      Faculty of Law
+                    </button>
                     <button className="block text-left w-full">
                       Faculty of Economics and Business
                     </button>
-                    <button className="block text-left w-full">Faculty of Health Sciences</button>
+                    <button className="block text-left w-full">
+                      Faculty of Health Sciences
+                    </button>
                     <button className="block text-left w-full">
                       Faculty of Engineering and Science
                     </button>
@@ -170,26 +177,47 @@ const User = () => {
           <table className="w-full">
             <thead className="bg-primary text-white">
               <tr>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Name</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Type User</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Faculty</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Vehicle</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Email</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">NIP/NPM</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Balance</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Status</th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">Action</th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Name
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Type User
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Faculty
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Vehicle
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Email
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  NIP/NPM
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Balance
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Status
+                </th>
+                <th className="text-sm font-semibold py-2 px-4 text-left">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
               {apiUsers.map((user, index) => (
-                <tr
-                  key={index}
-                  className="border-b hover:bg-gray-100"
-                >
-                  <td className="text-sm text-gray-700 py-3 px-4">{user.name}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{user.role}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{user.faculty}</td>
+                <tr key={index} className="border-b hover:bg-gray-100">
+                  <td className="text-sm text-gray-700 py-3 px-4">
+                    {user.name}
+                  </td>
+                  <td className="text-sm text-gray-700 py-3 px-4">
+                    {user.role}
+                  </td>
+                  <td className="text-sm text-gray-700 py-3 px-4">
+                    {user.faculty}
+                  </td>
                   <td className="text-sm text-gray-700 py-3 px-4 relative flex items-center gap-2">
                     <div>
                       <div className="flex items-center gap-2">
@@ -201,9 +229,15 @@ const User = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{user.email}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{user.npm}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{user.saldo}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4">
+                    {user.email}
+                  </td>
+                  <td className="text-sm text-gray-700 py-3 px-4">
+                    {user.npm}
+                  </td>
+                  <td className="text-sm text-gray-700 py-3 px-4">
+                    {user.saldo}
+                  </td>
                   <td className="text-sm py-3 px-4">
                     <span
                       className={`px-3 py-1 font-semibold rounded-md ${
