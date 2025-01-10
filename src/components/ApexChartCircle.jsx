@@ -67,7 +67,7 @@ const ApexChartCircle = () => {
 
   const series = [motorcyclePercentage, carPercentage]; // Nilai persentase dari API
 
-  if (error) return <p className="text-red-500">{error}</p>;
+  // if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="bg-white flex justify-center items-center rounded-lg shadow-lg w-full h-[265px] relative">

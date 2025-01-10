@@ -150,7 +150,7 @@ const User = () => {
                     </button>
                     <button className="block text-left w-full">Faculty of Law</button>
                     <button className="block text-left w-full">
-                      Faculty of Economics and Business
+                      Faculty of Economics and Business         
                     </button>
                     <button className="block text-left w-full">Faculty of Health Sciences</button>
                     <button className="block text-left w-full">
