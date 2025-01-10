@@ -9,50 +9,6 @@ import { dashboard } from "../services/apiDashboard";
 import FilterDashboard from "../components/FilterDashboard";
 import Skeleton from "react-loading-skeleton";
 
-const VehicleCard = ({ icon, bgClass, label, value }) => (
-  <div className="shadow-xl bg-white rounded-xl p-5">
-    <div className="flex gap-5 flex-col items-start">
-      <div className={`${bgClass} rounded-xl p-2`}>{icon}</div>
-      <div>
-        <p className="text-xs">{label}</p>
-        <div className="flex items-center gap-2">
-          {value !== null ? (
-            <h2 className="text-lg md:text-3xl font-black">{value}</h2>
-          ) : (
-            <Skeleton
-              height={32}
-              width={80}
-            />
-          )}
-          <p className="text-sm">Today</p>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const IncomeCard = ({ totalIncome }) => (
-  <div className="bg-white shadow-lg p-5 rounded-lg">
-    <p>7 September 2024</p>
-    <p className="font-bold mt-5 text-xl">Total Income</p>
-    <div className="flex justify-between items-center">
-      {totalIncome !== null ? (
-        <p className="text-primary text-2xl md:text-5xl font-bold">{totalIncome}</p>
-      ) : (
-        <Skeleton
-          height={48}
-          width={120}
-        />
-      )}
-      <img
-        src="./assets/img/dashboard/rupiah.png"
-        alt="money"
-        className="w-32"
-      />
-    </div>
-  </div>
-);
-
 const Dashboard = () => {
   const [motorVehicle, setMotorVehicle] = useState(null);
   const [carVehicle, setCarVehicle] = useState(null);
@@ -83,6 +39,14 @@ const Dashboard = () => {
 
     fetchData();
   }, [filterRange]);
+
+  if (error) {
+    return (
+      <p className="text-red-500 flex justify-center items-center font-bold uppercase h-[100vh] text-2xl">
+        Failed to load dashboard data. Please try again.
+      </p>
+    );
+  }
 
   return (
     <div className="flex">
@@ -142,5 +106,49 @@ const Dashboard = () => {
     </div>
   );
 };
+
+const VehicleCard = ({ icon, bgClass, label, value }) => (
+  <div className="shadow-xl bg-white rounded-xl p-5">
+    <div className="flex gap-5 flex-col items-start">
+      <div className={`${bgClass} rounded-xl p-2`}>{icon}</div>
+      <div>
+        <p className="text-xs">{label}</p>
+        <div className="flex items-center gap-2">
+          {value !== null ? (
+            <h2 className="text-lg md:text-3xl font-black">{value}</h2>
+          ) : (
+            <Skeleton
+              height={32}
+              width={80}
+            />
+          )}
+          <p className="text-sm">Today</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const IncomeCard = ({ totalIncome }) => (
+  <div className="bg-white shadow-lg p-5 rounded-lg">
+    <p>7 September 2024</p>
+    <p className="font-bold mt-5 text-xl">Total Income</p>
+    <div className="flex justify-between items-center">
+      {totalIncome !== null ? (
+        <p className="text-primary text-2xl md:text-5xl font-bold">{totalIncome}</p>
+      ) : (
+        <Skeleton
+          height={48}
+          width={120}
+        />
+      )}
+      <img
+        src="./assets/img/dashboard/rupiah.png"
+        alt="money"
+        className="w-32"
+      />
+    </div>
+  </div>
+);
 
 export default Dashboard;
