@@ -25,6 +25,7 @@ const User = () => {
   const [filter, setFilter] = useState();
   const [studentFilter, setStudentFilter] = useState();
   const popupRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // PopUp Action
   const handlePopupToggle = (index) => {
@@ -89,6 +90,11 @@ const User = () => {
     setStudentFilter((prev) => !prev);
   };
 
+  // Filter data berdasarkan searchTerm
+  const filteredUsers = apiUsers.filter((user) =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="flex">
       <Sidebar />
@@ -120,6 +126,8 @@ const User = () => {
                 type="text"
                 placeholder="Search"
                 className="p-2 rounded-md border-none flex-grow focus:outline-none"
+                value={searchTerm} // Hubungkan dengan state
+                onChange={(e) => setSearchTerm(e.target.value)} // Update state saat input berubah
               />
             </div>
             <button
@@ -207,7 +215,7 @@ const User = () => {
               </tr>
             </thead>
             <tbody>
-              {apiUsers.map((user, index) => (
+              {filteredUsers.map((user, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
                   <td className="text-sm text-gray-700 py-3 px-4">
                     {user.name}
