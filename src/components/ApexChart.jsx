@@ -72,7 +72,7 @@ const ApexChart = () => {
       </div>
 
       {/* Tampilkan Error jika ada masalah fetching */}
-      {error && <p className="text-red-500">{error}</p>}
+      {/* {error && <p className="text-red-500">{error}</p>} */}
 
       {/* Chart */}
       <ReactApexChart
