@@ -32,8 +32,8 @@ const Transaksi = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const products = await transaktionAll();
-        setHistory(products);
+        const data = await transaktionAll();
+        setHistory(data);
       } catch (err) {
         setError("Failed to fetch data");
       }
@@ -469,13 +469,13 @@ const Transaksi = () => {
                   key={index}
                   className="hover:bg-gray-100 bg-white"
                 >
-                  <td className="text-sm text-gray-700 py-3 px-4">{historys.title}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{historys.price}</td>
-                  {/* <td className="text-sm text-gray-700 py-3 px-4">{transaction.typeuser}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.npm}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.email}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4">{historys.user.name}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4">{historys.user.role}</td>
+                  {/* <td className="text-sm text-gray-700 py-3 px-4">{history.user.npm}</td> */}
+                  {/* <td className="text-sm text-gray-700 py-3 px-4">{history.user.name}</td> */}
+                  {/* <td className="text-sm text-gray-700 py-3 px-4">{history.user.email}</td> */}
                   <td className="text-sm text-gray-700 py-3 px-4 flex items-center gap-2">
-                    {transaction.vehicle === "motor" ? (
+                    {history.vehicle === "motor" ? (
                       <div className="bg-green-100 rounded-xl p-2">
                         <FaMotorcycle className="text-primary text-base" />
                       </div>
@@ -484,15 +484,13 @@ const Transaksi = () => {
                         <FaCarSide className="text-yellow-300 text-base" />
                       </div>
                     )}
-                    {transaction.vehicle}
+                    {history.vehicle}
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.date}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4">{transaction.payment}</td>
-                  <td className="text-sm text-primary py-3 px-4">{transaction.in}</td>
-                  <td className="text-sm text-red-700 py-3 px-4">{transaction.out}</td>
-                  <td className="text-sm text-gray-700 py-3 px-4 font-semibold">
-                    {transaction.price}
-                  </td> */}
+                  <td className="text-sm text-gray-700 py-3 px-4">{history.date}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4">{history.payment}</td>
+                  <td className="text-sm text-primary py-3 px-4">{history.in}</td>
+                  <td className="text-sm text-red-700 py-3 px-4">{history.out}</td>
+                  <td className="text-sm text-gray-700 py-3 px-4 font-semibold">{history.price}</td>
                 </tr>
               ))}
             </tbody>

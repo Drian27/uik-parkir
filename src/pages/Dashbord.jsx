@@ -8,6 +8,7 @@ import ButtonLogOut from "../components/ButtonLogOut";
 import { dashboard } from "../services/apiDashboard";
 import FilterDashboard from "../components/FilterDashboard";
 import Skeleton from "react-loading-skeleton";
+import { div } from "framer-motion/client";
 
 const VehicleCard = ({ icon, bgClass, label, value }) => (
   <div className="shadow-xl bg-white rounded-xl p-5">
@@ -69,13 +70,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formattedStart = filterRange.startDate.toISOString().split("T")[0];
-        const formattedEnd = filterRange.endDate.toISOString().split("T")[0];
-        const data = await dashboard({ start_date: formattedStart, end_date: formattedEnd });
-        setMotorVehicle(data.total_motorcycles_in || 0);
-        setCarVehicle(data.total_cars_in || 0);
-        setTotalVehicle(data.total_vehicles_in || 0);
-        setTotalIncome(data.total_amount || 0);
+        const data = await transaktionAll();
+        setMotorVehicle(data);
       } catch (err) {
         setError("Failed to fetch data");
       }
@@ -118,9 +114,9 @@ const Dashboard = () => {
           <div className="grid grid-cols-3 gap-5">
             <VehicleCard
               icon={<FaMotorcycle className="text-primary text-2xl md:text-5xl" />}
-              bgClass="bg-yellow-100"
-              label="Motor Vehicles"
-              value={motorVehicle}
+              bgClass="bg-green-200"
+              label="Motorcycle Vehicles"
+              value={carVehicle}
             />
             <VehicleCard
               icon={<FaCarSide className="text-yellow-300 text-2xl md:text-5xl" />}

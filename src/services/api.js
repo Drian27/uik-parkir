@@ -25,8 +25,10 @@ export const login = async (data) => {
 
 export const transaktionAll = async () => {
   try {
-    const response = await axios.get("https://fakestoreapi.com/products");
-    return response.data; // Kembalikan data dari respons
+    const response = await axios.get(
+      "http://134.209.110.22/api/transaction/history?filter=week&start_date=2025-01-01"
+    );
+    return response.data.data; // Kembalikan data dari respons
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error; // Lempar error agar bisa ditangani di komponen
