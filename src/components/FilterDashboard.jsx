@@ -1,8 +1,8 @@
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import { DateRange } from "react-date-range";
-import { IoFilter } from "react-icons/io5";
-import { useState } from "react";
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { DateRange } from 'react-date-range';
+import { IoFilter } from 'react-icons/io5';
+import { useState } from 'react';
 
 function FilterDashboard({ onFilterApply }) {
   const [filterVisible, setFilterVisible] = useState(false);
@@ -10,42 +10,42 @@ function FilterDashboard({ onFilterApply }) {
     {
       startDate: new Date(),
       endDate: new Date(),
-      key: "selection",
+      key: 'selection',
     },
   ]);
-  const [activePreset, setActivePreset] = useState("");
+  const [activePreset, setActivePreset] = useState('');
 
   const setPredefinedRange = (type) => {
     const today = new Date();
     let startDate, endDate;
 
     switch (type) {
-      case "today":
+      case 'today':
         startDate = new Date(today);
         endDate = new Date(today);
         break;
-      case "yesterday":
+      case 'yesterday':
         startDate = new Date(today);
         startDate.setDate(today.getDate() - 1);
         endDate = new Date(startDate);
         break;
-      case "thisWeek":
+      case 'thisWeek':
         startDate = new Date(today);
         startDate.setDate(today.getDate() - today.getDay());
         endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 6);
         break;
-      case "lastWeek":
+      case 'lastWeek':
         startDate = new Date(today);
         startDate.setDate(today.getDate() - today.getDay() - 7);
         endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 6);
         break;
-      case "thisMonth":
+      case 'thisMonth':
         startDate = new Date(today.getFullYear(), today.getMonth(), 1);
         endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         break;
-      case "lastMonth":
+      case 'lastMonth':
         startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
         endDate = new Date(today.getFullYear(), today.getMonth(), 0);
         break;
@@ -54,18 +54,18 @@ function FilterDashboard({ onFilterApply }) {
         endDate = new Date(today);
     }
 
-    setDateRange([{ startDate, endDate, key: "selection" }]);
+    setDateRange([{ startDate, endDate, key: 'selection' }]);
     setActivePreset(type); // Set active preset
   };
 
   const handleSelect = (ranges) => {
     setDateRange([ranges.selection]);
-    setActivePreset(""); // Reset active preset
+    setActivePreset(''); // Reset active preset
   };
 
   const handleApplyFilter = () => {
     if (!dateRange[0]?.startDate || !dateRange[0]?.endDate) {
-      alert("Please select a valid date range before applying the filter.");
+      alert('Please select a valid date range before applying the filter.');
       return;
     }
     onFilterApply({
@@ -73,7 +73,7 @@ function FilterDashboard({ onFilterApply }) {
       endDate: dateRange[0].endDate,
     });
     setFilterVisible(false);
-    console.log("Filter applied:", dateRange);
+    console.log('Filter applied:', dateRange);
   };
 
   return (
@@ -81,33 +81,40 @@ function FilterDashboard({ onFilterApply }) {
       {/* Open Filter Button */}
       <button
         onClick={() => setFilterVisible(!filterVisible)}
-        className="bg-primary text-white my-3 px-4 py-2 rounded-lg shadow-md flex justify-center items-center gap-2"
+        className="flex items-center justify-center gap-2 px-4 py-2 my-3 text-white rounded-lg shadow-md bg-primary"
       >
         <IoFilter className="text-2xl" />
-        <p className="text-xl">{activePreset ? `Filter: ${activePreset}` : "Filter"}</p>
+        <p className="text-xl">
+          {activePreset ? `Filter: ${activePreset}` : 'Filter'}
+        </p>
       </button>
 
       {/* Filter Panel */}
       {filterVisible && (
-        <div className="absolute top-15 left-0 bg-white shadow-lg rounded-lg p-4 z-50 w-1/2">
+        <div className="absolute left-0 z-50 w-1/2 p-4 bg-white rounded-lg shadow-lg top-15">
           <div className="flex gap-4">
             {/* Preset Buttons */}
             <div className="flex flex-col gap-2">
-              {["today", "yesterday", "thisWeek", "lastWeek", "thisMonth", "lastMonth"].map(
-                (type) => (
-                  <button
-                    key={type}
-                    className={`px-4 py-2 rounded-lg ${
-                      activePreset === type
-                        ? "bg-primary text-white"
-                        : "bg-gray-100 text-black hover:bg-gray-200"
-                    }`}
-                    onClick={() => setPredefinedRange(type)}
-                  >
-                    {type}
-                  </button>
-                )
-              )}
+              {[
+                'today',
+                'yesterday',
+                'thisWeek',
+                'lastWeek',
+                'thisMonth',
+                'lastMonth',
+              ].map((type) => (
+                <button
+                  key={type}
+                  className={`px-4 py-2 rounded-lg ${
+                    activePreset === type
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-100 text-black hover:bg-gray-200'
+                  }`}
+                  onClick={() => setPredefinedRange(type)}
+                >
+                  {type}
+                </button>
+              ))}
             </div>
             {/* Custom Date Picker */}
             <div>
@@ -123,7 +130,7 @@ function FilterDashboard({ onFilterApply }) {
 
           {/* Apply Button */}
           <button
-            className="bg-primary text-white px-4 py-2 rounded-lg w-full"
+            className="w-full px-4 py-2 text-white rounded-lg bg-primary"
             onClick={handleApplyFilter}
           >
             Apply Filter

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { login } from "../services/api";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { login } from '../services/api';
 
 const Home = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -20,16 +20,19 @@ const Home = () => {
     };
 
     try {
-      const response = await login(data); // Asumsikan login API mengembalikan token
+      const response = await login(data);
       if (response?.data?.token) {
-        localStorage.setItem("authToken", response.data.token); // Simpan token
-        console.log("Token berhasil disimpan:", response.data.token); // Debug
-        navigate("/dashboard", { replace: true }); // Arahkan ke dashboard
+        localStorage.setItem('authToken', response.data.token);
+        navigate('/dashboard', { replace: true });
       } else {
-        console.error("Login gagal, token tidak diterima.");
+        setErrorMessage('Login gagal, token tidak diterima.');
       }
     } catch (error) {
-      console.error("Kesalahan saat login:", error);
+      const errorMsg =
+        error.response?.data?.message === 'Validation Error'
+          ? 'Wrong User ID and Password'
+          : 'Login gagal, terjadi kesalahan.';
+      setErrorMessage(errorMsg);
     }
   };
 
@@ -39,12 +42,12 @@ const Home = () => {
         <img
           src="./assets/img/login/bg.png"
           alt="bg"
-          className="md:absolute inset-0 md:h-full md:w-full rounded-3xl"
+          className="inset-0 md:absolute md:h-full md:w-full rounded-3xl"
         />
         <img
           src="./assets/img/login/parkir.png"
           alt="parkir"
-          className="w-40 pt-5 ml-6 top-32 md:w-80 lg:ml-32 lg:top-20 absolute inset-1 md:top-36 md:-left-10"
+          className="absolute w-40 pt-5 ml-6 top-32 md:w-80 lg:ml-32 lg:top-20 inset-1 md:top-36 md:-left-10"
         />
         <img
           src="./assets/img/login/human.png"
@@ -67,7 +70,7 @@ const Home = () => {
                 username
               </span>
               <input
-                className="px-5 py-3 border rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
+                className="block w-full px-5 py-3 text-sm border rounded-lg placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
                 type="text"
                 placeholder="User ID"
                 name="username"
@@ -86,8 +89,8 @@ const Home = () => {
               </span>
               <div className="relative w-full">
                 <input
-                  className="px-5 py-3 border rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
-                  type={showPassword ? "text" : "password"}
+                  className="block w-full px-5 py-3 text-sm border rounded-lg placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="**********"
                   name="password"
                   id="password"
@@ -95,7 +98,7 @@ const Home = () => {
                 />
                 <span
                   onClick={togglePasswordVisibility}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+                  className="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer right-4 top-1/2"
                 >
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </span>
@@ -108,13 +111,15 @@ const Home = () => {
               required
               className="w-4"
             />
-            <p className="font-light text-sm">Remember me?</p>
+            <p className="text-sm font-light">Remember me?</p>
           </div>
-          {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+          {errorMessage && (
+            <p className="text-sm text-red-500">{errorMessage}</p>
+          )}
           <div className="flex w-full mt-2 text-center">
             <button
               type="submit"
-              className="w-full py-3 text-white transition duration-300 ease-in-out bg-primary rounded-lg font-semibold"
+              className="w-full py-3 font-semibold text-white transition duration-300 ease-in-out rounded-lg bg-primary"
             >
               Login
             </button>
