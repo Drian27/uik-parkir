@@ -2,7 +2,7 @@ import https from 'https';
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'https://134.209.110.22',
+  baseURL: 'http://134.209.110.22',
   httpsAgent: new https.Agent({
     rejectUnauthorized: false,
   }),
