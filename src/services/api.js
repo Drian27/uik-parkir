@@ -18,6 +18,10 @@ export const login = async (data) => {
     );
     return response;
   } catch (error) {
+    if (error.code === 'ECONNREFUSED') {
+      console.error('Connection refused:', error.message);
+      throw new Error('Unable to connect to the server.');
+    }
     throw error;
   }
 };
