@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../components/Sidebar';
-import ApexChart from '../components/ApexChart';
-import ApexChartCircle from '../components/ApexChartCircle';
-import { FaMotorcycle, FaCirclePlus, FaCarSide } from 'react-icons/fa6';
-import Customer from '../components/Customer';
-import ButtonLogOut from '../components/ButtonLogOut';
-// import { dashboard } from '../services/apiDashboard';
-import FilterDashboard from '../components/FilterDashboard';
-import Skeleton from 'react-loading-skeleton';
+import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Sidebar";
+import ApexChart from "../components/ApexChart";
+import ApexChartCircle from "../components/ApexChartCircle";
+import { FaMotorcycle, FaCirclePlus, FaCarSide } from "react-icons/fa6";
+import Customer from "../components/Customer";
+import ButtonLogOut from "../components/ButtonLogOut";
+import { dashboard } from "../services/apiDashboard";
+import FilterDashboard from "../components/FilterDashboard";
+import Skeleton from "react-loading-skeleton";
 
 const VehicleCard = ({ icon, bgClass, label, value }) => (
   <div className="p-3 bg-white shadow-xl rounded-xl">
@@ -28,16 +28,21 @@ const VehicleCard = ({ icon, bgClass, label, value }) => (
   </div>
 );
 
-const IncomeCard = ({ totalIncome }) => (
+const IncomeCard = ({ totalIncome, startDate, endDate }) => (
   <div className="p-5 bg-white rounded-lg shadow-lg">
-    <p>7 September 2024</p>
+    <p>
+      {startDate && endDate
+        ? `${new Date(startDate).toLocaleDateString()} - ${new Date(
+            endDate
+          ).toLocaleDateString()}`
+        : "Loading..."}
+    </p>
     <p className="mt-5 text-xl font-bold">Total Income</p>
     <div className="flex items-center justify-between">
       {totalIncome !== null ? (
         <p className="text-2xl font-bold text-primary md:text-5xl">
           Rp.
           {totalIncome}
-        
         </p>
       ) : (
         <Skeleton height={48} width={120} />
@@ -56,25 +61,82 @@ const Dashboard = () => {
   const [carVehicle, setCarVehicle] = useState(null);
   const [totalVehicle, setTotalVehicle] = useState(null);
   const [totalIncome, setTotalIncome] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const formattedStart = filterRange.startDate.toISOString().split("T")[0];
-        const formattedEnd = filterRange.endDate.toISOString().split("T")[0];
-        const data = await dashboard({ start_date: formattedStart, end_date: formattedEnd });
-        setMotorVehicle(data.total_motorcycles_in || 0);
-        setCarVehicle(data.total_cars_in || 0);
-        setTotalVehicle(data.total_vehicles_in || 0);
-        setTotalIncome(data.total_amount || 0);
-      } catch (err) {
-        console.error('Error fetching data:', err);
-        setError('Gagal memuat data dashboard. Silakan coba lagi.');
-      }
-    };
+  // const onFilterApply = ({ startDate, endDate }) => {
+  //   console.log("Tanggal mulai:", startDate);
+  //   console.log("Tanggal akhir:", endDate);
 
-    fetchData();
+  //   // Lakukan pemanggilan API atau update state sesuai dengan rentang tanggal yang dipilih
+  //   // Contoh jika Anda ingin memanggil dashboard API lagi menggunakan startDate dan endDate
+  //   fetchData(startDate, endDate); // Panggil API dengan startDate dan endDate yang baru
+  // };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await dashboard();
+
+  //       // Validasi apakah data yang diterima benar
+  //       if (response.success && response.data && response.data.summary) {
+  //         const { summary } = response.data;
+
+  //         // Set state sesuai data API
+  //         setMotorVehicle(summary.total_motorcycles_out);
+  //         setCarVehicle(summary.total_cars_out);
+  //         setTotalVehicle(summary.total_vehicles_out);
+  //         setTotalIncome(summary.total_amount);
+  //         setStartDate(summary.start_date);
+  //         setEndDate(summary.end_date);
+  //       } else {
+  //         throw new Error("Struktur respons API tidak sesuai");
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching data:", err.response || err.message);
+  //       setError("Gagal memuat data dashboard. Silakan coba lagi.");
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  const fetchData = async (startDate, endDate) => {
+    try {
+      // Panggil API dengan rentang tanggal (startDate & endDate) yang diberikan
+      const response = await dashboard({ startDate, endDate });
+
+      if (response.success && response.data && response.data.summary) {
+        const { summary } = response.data;
+
+        setMotorVehicle(summary.total_motorcycles_out);
+        setCarVehicle(summary.total_cars_out);
+        setTotalVehicle(summary.total_vehicles_out);
+        setTotalIncome(summary.total_amount);
+        setStartDate(summary.start_date);
+        setEndDate(summary.end_date);
+      } else {
+        throw new Error("Struktur respons API tidak sesuai");
+      }
+    } catch (err) {
+      console.error("Error fetching data:", err.response || err.message);
+      setError("Gagal memuat data dashboard. Silakan coba lagi.");
+    }
+  };
+
+  // Fungsi untuk menangani aplikasi filter
+  const onFilterApply = ({ startDate, endDate }) => {
+    console.log("Tanggal mulai:", startDate);
+    console.log("Tanggal akhir:", endDate);
+
+    // Panggil fungsi fetchData dengan rentang tanggal yang dipilih
+    fetchData(startDate, endDate);
+  };
+
+  // Panggil fetchData pertama kali ketika komponen di-mount
+  useEffect(() => {
+    fetchData(startDate, endDate);
   }, []);
 
   return (
@@ -93,14 +155,16 @@ const Dashboard = () => {
               <p className="text-xs font-bold md:text-sm">Super Admin</p>
             </div>
           </div>
-          <h1 className="text-sm md:text-2xl font-bold text-white">DASHBOARD</h1>
+          <h1 className="text-sm md:text-2xl font-bold text-white">
+            DASHBOARD
+          </h1>
           <ButtonLogOut />
         </div>
-        <FilterDashboard />
+        <FilterDashboard onFilterApply={onFilterApply} />
         <div className="container mx-auto mt-5">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full md:w-[60%] px-4 mb-4">
-              <ApexChart />
+              <ApexChart startDate={startDate} endDate={endDate} />
             </div>
             <div className="w-full md:w-[40%] px-4 mb-4">
               <ApexChartCircle />
@@ -110,25 +174,35 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 gap-2 mt-5 md:grid-cols-2 md:gap-10">
           <div className="grid grid-cols-3 gap-5">
             <VehicleCard
-              icon={<FaMotorcycle className="text-primary text-2xl md:text-5xl" />}
+              icon={
+                <FaMotorcycle className="text-primary text-2xl md:text-5xl" />
+              }
               bgClass="bg-yellow-100"
               label="Motor Vehicles"
               value={motorVehicle}
             />
             <VehicleCard
-              icon={<FaCarSide className="text-yellow-300 text-2xl md:text-5xl" />}
+              icon={
+                <FaCarSide className="text-yellow-300 text-2xl md:text-5xl" />
+              }
               bgClass="bg-[#FFF4DE]"
               label="Car Vehicles"
               value={carVehicle}
             />
             <VehicleCard
-              icon={<FaCirclePlus className="text-primary text-2xl md:text-5xl" />}
+              icon={
+                <FaCirclePlus className="text-primary text-2xl md:text-5xl" />
+              }
               bgClass="bg-green-100"
               label="Total Vehicles"
               value={totalVehicle}
             />
           </div>
-          <IncomeCard totalIncome={totalIncome} />
+          <IncomeCard
+            totalIncome={totalIncome}
+            startDate={startDate}
+            endDate={endDate}
+          />
         </div>
         <Customer />
       </div>
