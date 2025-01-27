@@ -42,7 +42,7 @@ apiClient.interceptors.push({
 
 export const login = async (data) => {
   try {
-    const response = await apiClient.post('/api/auth/user/show-all', data);
+    const response = await apiClient.get('/api/auth/user/show-all', data);
     return response.data;
   } catch (error) {
     console.error('Login error:', error);
