@@ -13,11 +13,15 @@ export const getUsers = async () => {
 export const login = async (data) => {
   try {
     const response = await axios.post(
-      'https://134.209.110.22/api/auth/login',
+      'http://134.209.110.22/api/auth/login',
       data
     );
     return response;
   } catch (error) {
+    if (error.code === 'ECONNREFUSED') {
+      console.error('Connection refused:', error.message);
+      throw new Error('Unable to connect to the server.');
+    }
     throw error;
   }
 };
