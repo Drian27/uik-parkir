@@ -1,23 +1,23 @@
-import React, { useState, useRef, useEffect } from "react";
-import Sidebar from "../components/Sidebar";
-import { fetchUsers } from "../services/apiUser";
+import React, { useState, useRef, useEffect } from 'react';
+import Sidebar from '../components/Sidebar';
+import { fetchUsers } from '../services/apiUser';
 
 // icons
-import { CiSearch } from "react-icons/ci";
+import { CiSearch } from 'react-icons/ci';
 import {
   FaCarSide,
   FaChevronDown,
   FaCirclePlus,
   FaMotorcycle,
   FaRegCircleCheck,
-} from "react-icons/fa6";
+} from 'react-icons/fa6';
 import {
   IoIosArrowBack,
   IoIosArrowForward,
   IoMdArrowDropdown,
-} from "react-icons/io";
-import ButtonLogOut from "../components/ButtonLogOut";
-import { AiOutlineEllipsis } from "react-icons/ai";
+} from 'react-icons/io';
+import ButtonLogOut from '../components/ButtonLogOut';
+import { AiOutlineEllipsis } from 'react-icons/ai';
 
 const User = () => {
   const [apiUsers, setApiUsers] = useState([]);
@@ -25,7 +25,7 @@ const User = () => {
   const [filter, setFilter] = useState();
   const [studentFilter, setStudentFilter] = useState();
   const popupRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   // PopUp Action
   const handlePopupToggle = (index) => {
@@ -43,9 +43,9 @@ const User = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -65,9 +65,9 @@ const User = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleOutFilter);
+    document.addEventListener('mousedown', handleOutFilter);
     return () => {
-      document.removeEventListener("mousedown", handleOutFilter);
+      document.removeEventListener('mousedown', handleOutFilter);
     };
   }, []);
 
@@ -78,7 +78,7 @@ const User = () => {
         const users = await fetchUsers();
         setApiUsers(users);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error('Error fetching users:', error);
       }
     };
 
@@ -98,40 +98,43 @@ const User = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="px-5 w-full flex flex-col bg-background">
+      <div className="flex flex-col w-full px-5 bg-background">
         {/* Header */}
-        <div className="w-full flex items-center justify-between px-5 py-1 md:py-2 bg-primary mt-5 rounded-2xl font-semibold">
-          <div className="flex justify-center items-center gap-2">
+        <div className="flex items-center justify-between w-full px-5 py-1 mt-5 font-semibold md:py-2 bg-primary rounded-2xl">
+          <div className="flex items-center justify-center gap-2">
             <div>
-              <img src="./assets/img/dashboard/logo-uika.png" alt="logo-uika" />
+              <img
+                src="./assets/img/dashboard/logo-uika.png"
+                alt="logo-uika"
+              />
             </div>
-            <div className="text-white leading-tight">
-              <p className="md:text-xl font-light">Abdul Murudul</p>
+            <div className="leading-tight text-white">
+              <p className="font-light md:text-xl">Abdul Murudul</p>
               <p className="md:text-sm text-xs font-[800]">Super Admin</p>
             </div>
           </div>
-          <h1 className="text-sm md:text-2xl font-bold text-white">USER</h1>
+          <h1 className="text-sm font-bold text-white md:text-2xl">USER</h1>
           <ButtonLogOut />
         </div>
 
         {/* Search & Filter */}
-        <div className="flex items-center justify-between mt-5 px-1">
+        <div className="flex items-center justify-between px-1 mt-5">
           <div>
             <h1 className="text-slate-500">ALL USER</h1>
           </div>
           <div className="flex">
-            <div className="flex bg-white items-center border rounded-md mr-2 px-2">
+            <div className="flex items-center px-2 mr-2 bg-white border rounded-md">
               <CiSearch className="text-3xl" />
               <input
                 type="text"
                 placeholder="Search"
-                className="p-2 rounded-md border-none flex-grow focus:outline-none"
+                className="flex-grow p-2 border-none rounded-md focus:outline-none"
                 value={searchTerm} // Hubungkan dengan state
                 onChange={(e) => setSearchTerm(e.target.value)} // Update state saat input berubah
               />
             </div>
             <button
-              className="border border-b-2 border-black px-4 py-2 rounded-md"
+              className="px-4 py-2 border border-b-2 border-black rounded-md"
               onClick={handlefilter}
             >
               Filter
@@ -139,7 +142,7 @@ const User = () => {
             {filter && (
               <div
                 ref={popupRef}
-                className="absolute top-40 right-5 bg-white border border-primary text-primary p-3 flex flex-col items-start gap-2 rounded-md z-10 shadow-lg"
+                className="absolute z-10 flex flex-col items-start gap-2 p-3 bg-white border rounded-md shadow-lg top-40 right-5 border-primary text-primary"
               >
                 <button>Lecturer</button>
                 <button
@@ -152,23 +155,23 @@ const User = () => {
                   </span>
                 </button>
                 {studentFilter && (
-                  <div className="ml-6 mt-2 bg-gray-100 border border-gray-300 rounded-md p-2 shadow">
-                    <button className="block text-left w-full">
+                  <div className="p-2 mt-2 ml-6 bg-gray-100 border border-gray-300 rounded-md shadow">
+                    <button className="block w-full text-left">
                       Faculty of Islamic Religion
                     </button>
-                    <button className="block text-left w-full">
+                    <button className="block w-full text-left">
                       Faculty of Teacher Training and Education
                     </button>
-                    <button className="block text-left w-full">
+                    <button className="block w-full text-left">
                       Faculty of Law
                     </button>
-                    <button className="block text-left w-full">
+                    <button className="block w-full text-left">
                       Faculty of Economics and Business
                     </button>
-                    <button className="block text-left w-full">
+                    <button className="block w-full text-left">
                       Faculty of Health Sciences
                     </button>
-                    <button className="block text-left w-full">
+                    <button className="block w-full text-left">
                       Faculty of Engineering and Science
                     </button>
                   </div>
@@ -181,55 +184,58 @@ const User = () => {
         </div>
 
         {/* Table */}
-        <div className="overflow-auto rounded-lg mt-5">
+        <div className="mt-5 overflow-auto rounded-lg">
           <table className="w-full">
-            <thead className="bg-primary text-white">
+            <thead className="text-white bg-primary">
               <tr>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Name
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Type User
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Faculty
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Vehicle
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Email
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   NIP/NPM
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Balance
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Status
                 </th>
-                <th className="text-sm font-semibold py-2 px-4 text-left">
+                <th className="px-4 py-2 text-sm font-semibold text-left">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
               {filteredUsers.map((user, index) => (
-                <tr key={index} className="border-b hover:bg-gray-100">
-                  <td className="text-sm text-gray-700 py-3 px-4">
+                <tr
+                  key={index}
+                  className="border-b hover:bg-gray-100"
+                >
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {user.name}
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {user.role}
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {user.faculty}
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4 relative flex items-center gap-2">
+                  <td className="relative flex items-center gap-2 px-4 py-3 text-sm text-gray-700">
                     <div>
                       <div className="flex items-center gap-2">
-                        {user.vehicle} <FaMotorcycle className="text-primary" />{" "}
+                        {user.vehicle} <FaMotorcycle className="text-primary" />{' '}
                         <FaRegCircleCheck className="text-primary" />
                       </div>
                       <div className="flex items-center gap-2">
@@ -237,39 +243,39 @@ const User = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {user.email}
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {user.npm}
                   </td>
-                  <td className="text-sm text-gray-700 py-3 px-4">
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {user.saldo}
                   </td>
-                  <td className="text-sm py-3 px-4">
+                  <td className="px-4 py-3 text-sm">
                     <span
                       className={`px-3 py-1 font-semibold rounded-md ${
-                        user.status === "Active"
-                          ? "text-white bg-primary"
-                          : "text-red-800 bg-red-200"
+                        user.status === 'Active'
+                          ? 'text-white bg-primary'
+                          : 'text-red-800 bg-red-200'
                       }`}
                     >
                       {user.status}
                     </span>
                   </td>
-                  <td className="cursor-pointer relative py-3 px-7">
+                  <td className="relative py-3 cursor-pointer px-7">
                     <div
                       onClick={() => handlePopupToggle(index)}
-                      className="bg-gray-200 flex justify-center w-auto rounded-xl p-1"
+                      className="flex justify-center w-auto p-1 bg-gray-200 rounded-xl"
                     >
                       <AiOutlineEllipsis className="text-lg" />
                     </div>
                     {activePopup === index && (
                       <div
                         ref={popupRef}
-                        className="absolute top-10 right-0 bg-gray-200 p-3 flex flex-col gap-1 rounded-md z-10 shadow-lg w-32 text-center"
+                        className="absolute right-0 z-10 flex flex-col w-32 gap-1 p-3 text-center bg-gray-200 rounded-md shadow-lg top-10"
                       >
-                        <button className="text-white bg-primary cursor-pointer hover:bg-gray-600 py-1 rounded">
+                        <button className="py-1 text-white rounded cursor-pointer bg-primary hover:bg-gray-600">
                           Aktif
                         </button>
                         <p className="text-white bg-[#FF3D00] cursor-pointer hover:bg-gray-600 py-1 rounded">
@@ -288,9 +294,9 @@ const User = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-4 flex items-center justify-center">
-          <div className="flex items-center text-sm space-x-2 text-slate-400">
-            <div className="flex items-center bg-slate-200 p-1 rounded-lg gap-2">
+        <div className="flex items-center justify-center mt-4">
+          <div className="flex items-center space-x-2 text-sm text-slate-400">
+            <div className="flex items-center gap-2 p-1 rounded-lg bg-slate-200">
               <p>1</p>
               <FaChevronDown />
             </div>

@@ -1,34 +1,23 @@
-// import { apiClient } from "./apiClient";
-import axios from "axios";
+import axios from 'axios';
 
-// Fungsi untuk mengambil data pengguna
 export const getUsers = async () => {
   try {
-    const response = await apiClient.get("/users"); // Data untuk di ambil
-    return response.data; // Data pengguna dari API
+    const response = await apiClient.get('/users');
+    return response.data;
   } catch (error) {
-    console.error("Error fetching users:", error);
-    throw error; // Melempar error untuk ditangani di komponen
+    console.error('Error fetching users:', error);
+    throw error;
   }
 };
 
 export const login = async (data) => {
   try {
-    const response = await axios.post("http://134.209.110.22/api/auth/login", data);
-    console.log("Response:", response.data);
+    const response = await axios.post(
+      'http://134.209.110.22/api/auth/login',
+      data
+    );
     return response;
   } catch (error) {
-    console.error("Error:", error.response?.data || error.message);
     throw error;
-  }
-};
-
-export const transaktionAll = async () => {
-  try {
-    const response = await axios.get("https://fakestoreapi.com/products");
-    return response.data; // Kembalikan data dari respons
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Lempar error agar bisa ditangani di komponen
   }
 };
