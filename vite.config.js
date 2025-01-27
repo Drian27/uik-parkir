@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://134.209.110.22', // Backend URL (insecure HTTP)
+        target: 'https://134.209.110.22', // Backend URL (insecure HTTP)
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''), // Remove '/api' prefix if needed
       },
