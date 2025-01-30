@@ -13,7 +13,7 @@ export const getUsers = async () => {
 export const login = async (data) => {
   try {
     const response = await axios.post(
-      'http://134.209.110.22/api/auth/login',
+      'https://134.209.110.22/api/auth/login',
       data
     );
     return response;
