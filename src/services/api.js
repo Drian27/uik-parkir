@@ -13,7 +13,7 @@ export const getUsers = async () => {
 export const login = async (data) => {
   try {
     const response = await axios.post(
-      'https://134.209.110.22/api/auth/login',
+      'https://api-photobooth.com:8081/',
       data
     );
     return response;
